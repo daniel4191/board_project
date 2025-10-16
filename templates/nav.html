@@ -1,9 +1,36 @@
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px;
+        background-color:rgb(231, 255, 222);
+    }
+    .logo {
+        position: absolute;
+        left:50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;        
+        text-decoration: none;
+    }
+    .menu a {
+        margin-left: 16px;
+        text-decoration: none;        
+    }
+    .menu {
+        position: absolute;
+        right:24px;
+        top:12px;
+        padding: 15px;
+    }
+</style>
 <nav>
-    <header>
-        <a href="{% url 'index' %}"><h1>Noabo</h1></a>
-        <div>
-            <a href="{% url 'posts:post_add' %}">post add</a>
-            <a href="{% url 'users:signup' %}">signup</a>
+    <header class="navbar">
+        <a href="{% url 'index' %}" class="logo"><h1>Noabo</h1></a>
+        <div class="menu">
+            <a href="{% url 'posts:post_add' %}">포스트추가</a>
+            <a href="{% url 'users:signup' %}">회원가입</a>
         </div>
     </header>
 </nav>
