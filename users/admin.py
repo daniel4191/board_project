@@ -8,8 +8,8 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     fieldset = [
         (None, {"fields": ("username", "password")}),
-        ("개인정보", {"fields": ("username", "email")}),
-        ("추가필드", {"fields": ("profile_image",)}),
+        ("개인정보", {"fields": ("first_name","last_name", "email")}),
+        ("추가필드", {"fields": ("profile_image","short_description")}),
         (
             "권한",
             {
