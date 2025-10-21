@@ -3,7 +3,7 @@
 <div class="content-section">
     <h1>{{post.title}}</h1>
     <p>작성자: {{post.writer.username}}</p>
-    <p>작성일: {{post.created|date: "Y-m-d H:i"}}</p>
+    <p>작성일: {{post.created|date:"Y-m-d H:i"}}</p>
     {% if post.tags %}
         <p>태그: {{post.tags}}</p>
     {% endif %}
@@ -14,7 +14,7 @@
         <p>{{post.content|linebreaksbr}}</p>
     </div>
     
-    {% if user==post.writer %}
+    {% if user == post.writer %}
         <a class="btn" href="{% url 'posts:post_edit' post.pk %}">수정</a>
         <a class="btn" onclick="return confirm('정말 삭제 하시겠습니까?');" href="{% url 'posts:post_delete' post.pk %}">삭제</a>
     {% endif %}
@@ -32,7 +32,7 @@
             </p>
             <p>{{comment.content|linebreaksbr}}</p>
 
-            {% if user==comment.user %}
+            {% if user == comment.user %}
                 <div class="comment-actions">
                     <a href="{% url 'posts:comment_edit' comment.pk %}">수정</a>
                     <a href="{% url 'posts:comment_delete' comment.pk %}">삭제</a>
