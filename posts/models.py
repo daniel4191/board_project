@@ -8,7 +8,7 @@ class Post(models.Model):
     tags = models.CharField("태그", max_length=100, blank=True)
     created = models.DateTimeField("생성일시", auto_now_add=True)
     updated = models.DateTimeField("수정일", auto_now=True)
-    writer = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
+    writer = models.ForeignKey("users.User", on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title
