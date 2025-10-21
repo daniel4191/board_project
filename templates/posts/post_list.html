@@ -1,4 +1,57 @@
 {% extends "base.html" %}
+{% block title %}게시글 목록{% endblock %}
 {% block content %}
-<h1>post_list</h1>
-{% endblock content %}
+<div class="hero">
+    <h1>오늘의 글</h1>
+    <p>당신의 이야기를 공유하세요</p>
+</div>
+
+<div class="content-section">
+    <h2>최신 글</h2>
+    <div class="post-preview">
+        {% for post in latest_posts %}
+        <div class="post-card">
+            <a href="{% url 'posts:post_detail' post.id %}">
+                <h3>{{ post.title }}</h3>
+            </a>
+            <p>{{ post.content|truncatechars:50 }}</p>
+            <small>{{ post.writer.username }} | {{ post.created|date:"Y-m-d" }}</small>
+        </div>
+        {% empty %}
+            <p>게시글이 없습니다.</p>
+        {% endfor %}
+    </div>
+
+    <hr style="margin: 2rem 0;">
+
+    <h2>전체 게시글</h2>
+    <div class="post-list full">
+        <ul>
+            {% for post in page_obj %}
+            <li>
+                <a href="{% url 'posts:post_detail' post.id %}">{{ post.title }}</a>
+                <small>{{ post.writer.username }} | {{ post.created|date:"Y-m-d H:i" }}</small>
+            </li>
+            {% empty %}
+                <li>게시글이 없습니다.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; 처음</a>
+            <a href="?page={{page_obj.previous_page_number}}">이전</a>
+        {% endif %}
+
+        <span class="current">
+            페이지 {{page_obj.number}} / {{page_obj.paginator.num_pages}}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">다음</a>
+            <a href="?page={{page_obj.paginator.num_pages}}">마지막 &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

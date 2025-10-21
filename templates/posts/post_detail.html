@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>{{post.title}}</h1>
+    <p>작성자: {{post.writer.username}}</p>
+    <p>작성일: {{post.created|date: "Y-m-d H:i"}}</p>
+    {% if post.tags %}
+        <p>태그: {{post.tags}}</p>
+    {% endif %}
+
+    <hr>
+    
+    <div class="post-content" style="min-height: 200px; margin-bottom: 2rem;">
+        <p>{{post.content|linebreaksbr}}</p>
+    </div>
+    
+    {% if user==post.writer %}
+        <a class="btn" href="{% url 'posts:post_edit' post.pk %}">수정</a>
+        <a class="btn" onclick="return confirm('정말 삭제 하시겠습니까?');" href="{% url 'posts:post_delete' post.pk %}">삭제</a>
+    {% endif %}
+
+    <hr>
+    
+    <div class="comments-section">
+        <h2>댓글 ({{comments.count}})</h2>
+        <ul>
+        {% for comment in comments %}
+        <li>
+            <p class="comment-meta">
+                <strong>{{comment.user.username}}</strong>
+                <span style="margin-left: 10px;">{{comment.created|date:"Y-m-d H:i"}}</span>
+            </p>
+            <p>{{comment.content|linebreaksbr}}</p>
+
+            {% if user==comment.user %}
+                <div class="comment-actions">
+                    <a href="{% url 'posts:comment_edit' comment.pk %}">수정</a>
+                    <a href="{% url 'posts:comment_delete' comment.pk %}">삭제</a>
+                </div>
+            {% endif %}
+        </li>
+        {%empty%}
+            <li>아직 댓글이 없습니다.</li>
+        {% endfor %}
+        </ul>
+
+        {% if user.is_authenticated %}
+            <h3>댓글 작성</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{comment_form.as_p}}
+                <button type="submit">댓글 등록</button>
+            </form>
+        {% else %}
+            <p>댓글을 작성하려면 <a href="{% url 'users:login' %}">로그인</a>하세요</p>
+        {% endif %}
+    </div>
+    
+    
+
+    
+</div>
+{% endblock content %}

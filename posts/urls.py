@@ -1,18 +1,15 @@
-from django.contrib import admin
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 
-from .views import post_add, post_list
+from . import views
 
 app_name = "posts"
 
 urlpatterns = [    
-    path("", post_list, name = "post_list"),
-    path("add/", post_add, name= "post_add")
+    path("", views.post_list, name = "post_list"),
+    path("add/", views.post_add, name= "post_add"),
+    path("<int:pk>/", views.post_detail, name = "post_detail"),
+    path("<int:pk>/edit/", views.post_edit, name = "post_edit"),
+    path("<int:pk>/delete/", views.post_delete, name = "post_delete"),
+    path("comment/<int:pk>/edit/", views.comment_edit, name = "comment_edit"),
+    path("comment/<int:pk>/delete/", views.comment_delete, name = "comment_delete")
 ]
-
-urlpatterns += static(
-    prefix=settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)

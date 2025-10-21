@@ -1,14 +1,12 @@
 {% extends "base.html" %}
-{% block title %}
-새 글 작성
-{% endblock title %}
 {% block content %}
 <div class="content-section">
-    <h2>새 글 작성</h2>
+    <h1>댓글 수정</h1>
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p}}
-    <button type="submit">등록</button>
-</form>
+        <button type="submit">저장</button>
+    </form>
+    <a href="{% url 'posts:post_detail' comment.post.id %}">돌아가기</a>
 </div>
 {% endblock content %}
