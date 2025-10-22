@@ -34,7 +34,7 @@ def login_view(request):
             
             if user:
                 login(request, user)
-                return redirect("/posts/")
+                return redirect("/")
             else:
                 form.add_error(None, "입력한 정보에 해당하는 유저가 없습니다.")
         
